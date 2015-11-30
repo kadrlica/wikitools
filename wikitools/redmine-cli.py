@@ -5,7 +5,6 @@ Redmine. Relies heavily on the python-redmine package
 (http://python-redmine.readthedocs.org/).
 
 """
-
 import sys
 import logging
 import argparse
@@ -19,6 +18,8 @@ parser.add_argument('url',help="URL of the page to edit.")
 parser.add_argument('input',nargs='+',help="Input file(s), pattern(s), or text.")
 parser.add_argument('-f','--force',action='store_true',
                     help="Force execution.")
+parser.add_argument('-s','--section',default='redmine-des',
+                    help="")
 parser.add_argument('-v','--verbose',action='store_true',
                     help="Output verbosity (via logging).")
 parser.add_argument('--version',action='version',version='%(prog)s '+str(__version__),
@@ -55,7 +56,7 @@ else:
     logging.getLogger('redmine.packages.requests.packages.urllib3').setLevel(logging.WARNING)
 
 # Create the interface
-redmine = DESRedmine()
+redmine = DESRedmine(section=opts.section)
 
 # Parse the actions
 if opts.attach:
