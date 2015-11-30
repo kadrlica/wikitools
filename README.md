@@ -5,13 +5,25 @@ Toolkit for working with wikis targeted at scientific collaborations.
 
 ### Installation
 
-Installation is provided through the usual python `setuptools`. After downloading the source code, the package can be installed with:
+Installation is provided through the usual python `setuptools`. The source code can either be cloned from github: 
+```bash
+git clone git@github.com:kadrlica/wikitools.git && cd wikitools
+```
+or downloaded and unzipped:
+```bash
+wget https://github.com/kadrlica/wikitools/archive/master.zip
+unzip master.zip && cd wikitools-master
+```
 
-    python setup.py install
-    
-If you don't have `root` access:
+After downloading the source code, the package can be installed with:
+```bash
+python setup.py install
+```
 
-    python setup.py install --user
+If you don't have `root` access, you can install locally with:
+```bash
+python setup.py install --user
+```
 
 ### Redmine
 
@@ -56,3 +68,7 @@ redmine-cli --force --detach $url cli_.*[7-9].txt
   INFO:root:Deleting https://cdcvs.fnal.gov/redmine/attachments/31259/cli_test_attachment_8.txt...
   INFO:root:Deleting https://cdcvs.fnal.gov/redmine/attachments/31260/cli_test_attachment_9.txt...
 ```
+
+### Confluence
+
+To come...
