@@ -108,7 +108,7 @@ class DESRedmine(redmine.Redmine):
         Download attachment(s) that match given pattern(s).
         """
         attachments = self.attachments_from_patterns(url,patterns)
-        
+        filenames = [a.filename for a in attachments]
         # For large files:
         # self.requests['stream'] = True
         savepath = ''
