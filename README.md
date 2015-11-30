@@ -34,7 +34,7 @@ Redmine provided through a light wrapper around the [`python-redmine`](https://g
 # The command line interface is focused on dealing with wiki pages and attachments
 
 # First we create a test page:
-url="https://cdcvs.fnal.gov/redmine/projects/des-sci-release/wiki/Redmine_Command_Line_Interface/Test_Page" 
+url="https://cdcvs.fnal.gov/redmine/projects/des-sci-release/wiki/Test_Page" 
 redmine-cli --create $url "This is a test page create with redmine-cli." 
 
 # Next we create a few test files to attach to the page. Note that Redmine will not attach empty files.
