@@ -1,7 +1,7 @@
 Wiki Tools
 =========
 
-Toolkit for working with wikis targeted at scientific collaborations. 
+Toolkit for working with wikis used by large scientific collaborations.
 
 ### Installation
 
@@ -28,6 +28,20 @@ python setup.py install --user
 ### Redmine
 
 Redmine provided through a light wrapper around the [`python-redmine`](https://github.com/maxtepkeev/python-redmine) module, which interfaces with the [Redmine REST API](http://www.redmine.org/projects/redmine/wiki/Rest_api). The primary value added is a simple command line interface allowing users automate their interactions with wiki pages and attachments.
+
+##### Authentication Credentials
+
+The preferred technique for passing your Redmine credentials to the command line interface is through the `.desservices.ini` file (the same file that stores you database credentials). To add your Redmine credentials to this file, add a new section with this format:
+```ini
+[redmine-des]
+url     = https://cdcvs.fnal.gov/redmine
+key     = <API-access-key>
+user    = <username>
+passwd  = <password>
+```
+The API access key is recommended, but not required for API access. Your API access key can be found by clicking the "My Account" link (upper right-hand corner) when logged into Redmine and looking "API access key" and clicking "Show" (as documented [here](http://www.redmine.org/projects/redmine/wiki/Rest_api#Authentication)).
+
+If you don't add a section to your `.desservices.ini` file, then the command line tool will ask for your username and password at execution time. As mentioned before, access via API access key is preferred.
 
 ##### Example Usage
 ```bash
