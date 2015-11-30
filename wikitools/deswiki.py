@@ -245,7 +245,7 @@ class DESRedmine(redmine.Redmine):
         config.defaults = defaults
         
         if section in config.sections():
-            auth = {k:config.get(section,k) for k in auth.keys()}
+            auth = dict([(k,config.get(section,k)) for k in auth.keys()])
 
         if (auth['user'] is None) or (auth['passwd'] is None):
             auth['user'] = raw_input('Username: ')

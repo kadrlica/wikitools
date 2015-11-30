@@ -1,8 +1,7 @@
 import sys
 import os
-from setuptools import setup, find_packages
-
-import wikitools
+try: from setuptools import setup
+except ImportError: from distutils.core import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -11,16 +10,16 @@ def read(filename):
 
 setup(
     name='wikitools',
-    version=wikitools.__version__,
+    version="0.0.0",
     url='https://github.com/kadrlica/wikitools',
     author='Alex Drlica-Wagner',
     author_email='kadrlica@fnal.gov',
     scripts = ['bin/redmine-cli'],
     install_requires=[
-        'python-redmine>=1.5.0',
-        'requests>=2.0.0',
+        'python-redmine >=1.5.0',
+        'requests >=2.0.0',
     ],
-    packages=find_packages(),
+    packages=['wikitools'],
     description="Simple automated interface to scientific wiki tools.",
     long_description=read('README.md'),
     platforms='any',
