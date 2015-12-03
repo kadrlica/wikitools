@@ -100,7 +100,7 @@ class DESRedmine(redmine.Redmine):
             text = page.text,
             uploads = uploads,
         )
-        logging.info("Attaching files:\n"+"/n".join(attachments))
+        logging.info("Attaching files:\n"+"\n".join(attachments))
         return self.wiki_page.update(**fields)
 
     def download_attachments(self,url,patterns=None):

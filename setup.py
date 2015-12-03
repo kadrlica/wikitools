@@ -16,6 +16,7 @@ setup(
     author_email='kadrlica@fnal.gov',
     scripts = ['bin/redmine-cli'],
     install_requires=[
+        'python >= 2.7.0',
         'python-redmine >=1.5.0',
         'requests >=2.0.0',
     ],
