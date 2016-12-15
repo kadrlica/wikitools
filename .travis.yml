@@ -2,8 +2,7 @@ language: python
 
 python:
   - "2.7"
-  - "3.5"
-#  - "nightly" # currently points to 3.6-dev
+#  - "3.5"
 
 sudo: false
 
@@ -18,11 +17,11 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   - conda info -a
-  - conda create -q -n travis-env python=$TRAVIS_PYTHON_VERSION numpy python-redmine requests -c Terradue 
+  - conda create -q -n travis-env python=$TRAVIS_PYTHON_VERSION python-redmine requests -c Terradue 
   - source activate travis-env
   - python setup.py install
 
 # command to run tests
-#script: 
+script: 
   #- nosetests -v --nocapture
   #- nosetests -v
