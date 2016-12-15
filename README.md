@@ -1,6 +1,10 @@
 Wiki Tools
 =========
 
+[![Build](https://img.shields.io/travis/kadrlica/wikitools.svg)](https://travis-ci.org/kadrlica/wikitools)
+[![Release](https://img.shields.io/github/release/kadrlica/wikitools.svg)](../../releases)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](../../)
+
 Toolkit for working with wikis used by large scientific collaborations.
 
 ### Installation
