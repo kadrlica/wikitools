@@ -5,7 +5,7 @@ Redmine. Relies heavily on the python-redmine package
 (http://python-redmine.readthedocs.org/).
 
 """
-import sys
+import os,sys
 import logging
 import argparse
 
@@ -26,6 +26,8 @@ parser.add_argument('--version',action='version',version='%(prog)s '+str(__versi
                     help="Print version and exit.")
 parser.add_argument('-q','--quiet',action='store_true',
                     help="Silence output (via logging).")
+parser.add_argument('-y','--yes',action='store_true',
+                    help="Do not ask for confirmation (NOT IMPLEMENTED).")
 
 group =parser.add_mutually_exclusive_group(required=True)
 group.add_argument('--attach',action='store_true',
@@ -62,7 +64,7 @@ redmine = DESRedmine(section=opts.section)
 if opts.attach:
     status = redmine.add_attachments(opts.url,opts.input)
 if opts.create:
-    redmine.create_wiki_page(opts.url,opts.force,text=' '.join(opts.input))
+    redmine.create_wiki_page(opts.url,opts.force,text=opts.input)
 if opts.delete:
     redmine.delete_wiki_page(opts.url,opts.force)
 if opts.detach:

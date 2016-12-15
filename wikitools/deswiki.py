@@ -74,7 +74,8 @@ class DESRedmine(redmine.Redmine):
         kw = self.authenticate()
         kw.update(**kwargs)
         super(DESRedmine,self).__init__(**kw)
-    
+        self.yes = kw.pop('yes',False)
+
     def add_attachments(self,url,attachments,descriptions=None):
         """ 
         Attach files to wiki page at the given url.
@@ -170,14 +171,21 @@ class DESRedmine(redmine.Redmine):
         Tiny wrapper around `redmine.wiki_page.create`
         """
         project_id,resource_id = self.parse_url(url)
+        text = self.parse_text(kwargs.pop('text',None))
+        
         fields = dict(resource_id=resource_id,project_id=project_id,
-                      title=resource_id.replace('_',' '),text=' ')
+                      title=resource_id.replace('_',' '),text=text)
         fields.update(**kwargs)
         if not force:
             question = "Create '%s'?"%url
             if not confirm(question,default=False): 
                 return None
 
+        try:
+            self.delete_wiki_page(url,force=force)
+        except redmine.exceptions.ResourceNotFoundError as e:
+            logging.info(str(e))
+        
         logging.info("Creating %s..."%url)
         return self.wiki_page.create(**fields)
 
@@ -194,6 +202,7 @@ class DESRedmine(redmine.Redmine):
                 return None
         logging.info("Deleting %s..."%url)
         return self.wiki_page.delete(**fields)
+
         
     def attachments_from_patterns(self,url,patterns=None):
         """ 
@@ -256,6 +265,20 @@ class DESRedmine(redmine.Redmine):
 
         return auth
         
+    @staticmethod
+    def parse_text(text):
+        """ Translate list or filename into string for `text` argument. """
+        if not text:
+            text = ' '
+
+        if not isinstance(text,basestring):
+            text = ' '.join(text)
+
+        if os.path.exists(text):
+            text = open(text,'r').read()
+
+        return text
+
     @staticmethod
     def get_authenticity_token(response):
         """ Get the CSRF authenticity token from a response """
