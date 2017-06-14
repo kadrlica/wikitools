@@ -14,7 +14,11 @@ import getpass
 import logging
 from collections import OrderedDict as odict
 
-import redmine
+# The python-redmine API changes between v1.5 and v2.0
+try:
+    import redmine
+except ImportError:
+    import redminelib as redmine
 
 # Utility Functions
 def get_des_config(desfile=None):

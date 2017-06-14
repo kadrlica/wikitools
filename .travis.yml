@@ -17,7 +17,8 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   - conda info -a
-  - conda create -q -n travis-env python=$TRAVIS_PYTHON_VERSION python-redmine requests -c Terradue 
+  - conda create -q -n travis-env python=$TRAVIS_PYTHON_VERSION requests 
+  - pip install python-redmine
   - source activate travis-env
   - python setup.py install
 
