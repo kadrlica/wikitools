@@ -14,8 +14,11 @@ import getpass
 import logging
 from collections import OrderedDict as odict
 
-try:    import redmine
-except: import redminelib as redmine
+# The python-redmine API changes between v1.5 and v2.0
+try:
+    import redmine
+except ImportError:
+    import redminelib as redmine
 
 def isstring(obj):
     """Python 2/3 compatible string check"""
