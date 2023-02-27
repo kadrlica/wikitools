@@ -40,15 +40,15 @@ group.add_argument('--detach',action='store_true',
                    help="Remove an attachment from wiki page.")
 group.add_argument('--download',action='store_true',
                    help="Download attachment from wiki page.")
-opts = parser.parse_args()
+args = parser.parse_args()
 
 
 logging.basicConfig(stream=sys.stdout,level=logging.INFO)
 logging.captureWarnings(True)
 
-if opts.quiet:
+if args.quiet:
     logging.getLogger().setLevel(logging.CRITICAL)
-elif opts.verbose:
+elif args.verbose:
     logging.getLogger().setLevel(logging.DEBUG)
     ### # Prints requests
     ### import httplib
@@ -58,16 +58,16 @@ else:
     logging.getLogger('redmine.packages.requests.packages.urllib3').setLevel(logging.WARNING)
 
 # Create the interface
-redmine = DESRedmine(section=opts.section)
+redmine = DESRedmine(section=args.section)
 
 # Parse the actions
-if opts.attach:
-    status = redmine.add_attachments(opts.url,opts.input)
-if opts.create:
-    redmine.create_wiki_page(opts.url,opts.force,text=opts.input)
-if opts.delete:
-    redmine.delete_wiki_page(opts.url,opts.force)
-if opts.detach:
-    status = redmine.delete_attachments(opts.url,opts.input,force=opts.force)
-if opts.download:
-    status = redmine.download_attachments(opts.url,opts.input)
+if args.attach:
+    status = redmine.add_attachments(args.url,args.input)
+if args.create:
+    redmine.create_wiki_page(args.url,args.force,text=args.input)
+if args.delete:
+    redmine.delete_wiki_page(args.url,args.force)
+if args.detach:
+    status = redmine.delete_attachments(args.url,args.input,force=args.force)
+if args.download:
+    status = redmine.download_attachments(args.url,args.input)

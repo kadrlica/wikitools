@@ -14,7 +14,13 @@ import getpass
 import logging
 from collections import OrderedDict as odict
 
-import redmine
+try:    import redmine
+except: import redminelib as redmine
+
+def isstring(obj):
+    """Python 2/3 compatible string check"""
+    import six
+    return isinstance(obj, six.string_types)
 
 # Utility Functions
 def get_des_config(desfile=None):
@@ -23,7 +29,10 @@ def get_des_config(desfile=None):
     Access file description in DESDM-3:
     https://opensource.ncsa.illinois.edu/confluence/x/lwCsAw
     """
-    from ConfigParser import SafeConfigParser
+    try:
+        from configparser import ConfigParser
+    except ImportError:
+        from ConfigParser import SafeConfigParser as ConfigParser
 
     if not desfile: desfile = os.getenv('DES_SERVICES')
     if not desfile: desfile = os.path.join(os.getenv('HOME'),'.desservices.ini')
@@ -31,7 +40,7 @@ def get_des_config(desfile=None):
     # ConfigParser throws confusing error if file doesn't exist
     open(desfile)
     
-    config = SafeConfigParser()
+    config = ConfigParser()
     config.read(desfile)
     return config
 
@@ -82,13 +91,13 @@ class DESRedmine(redmine.Redmine):
         """
         page = self.wiki_page_from_url(url)
         
-        if isinstance(attachments,basestring):
+        if isstring(attachments):
             attachments = [attachments]
 
         default_desc='automated upload'
         if descriptions is None: 
             descriptions = len(attachments)*[default_desc]
-        elif isinstance(descriptions,basestring):
+        elif isstring(descriptions):
             descriptions = [descriptions]
 
         uploads = []
@@ -117,7 +126,7 @@ class DESRedmine(redmine.Redmine):
             outname = a.filename
             if filenames.count(outname) > 1:
                 outname += '.%i'%a.internal_id
-            #print msg
+            #print(msg)
 
             if os.path.exists(os.path.join(savepath,outname)):
                 msg = "Found %s; skipping..."%outname
@@ -210,7 +219,7 @@ class DESRedmine(redmine.Redmine):
         """
         if patterns is None:
             patterns = ['']
-        if isinstance(patterns,basestring):
+        if isstring(patterns):
             patterns = [patterns]
 
         page = self.wiki_page_from_url(url)
@@ -271,7 +280,7 @@ class DESRedmine(redmine.Redmine):
         if not text:
             text = ' '
 
-        if not isinstance(text,basestring):
+        if not isstring(text):
             text = ' '.join(text)
 
         if os.path.exists(text):
